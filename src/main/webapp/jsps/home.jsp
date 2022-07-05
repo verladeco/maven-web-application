@@ -12,7 +12,7 @@
 <h1 align="center">Welcome to Landmark Technologies.</h1>
 <h2 align="center"> We are supporting the Derick must succeed project.
 	Landmark Technologies is a software development company. 
-	Class28 will run from April 9, 2022. I shall make my family proud.Amen!
+	Class28 will run from April 9, 2022. I shall make my family proud.Amen!!!
 	The shout of the King Jesus is in our midst. Deco will succeed by Gods grace.  HE IS OUR SUCCESS ACCESS KEY</h2>
 <hr>
 <div style="text-align: center;">
