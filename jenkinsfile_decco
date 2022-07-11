@@ -16,7 +16,7 @@ node{
     /* for multiline comments we can writw then like this.
     for groovy scripts*/
     stage('deploy to UAT'){
-        deploy adapters: [tomcat9(credentialsId: 'tomcatcredentials', path: '', url: 'http://107.23.181.109:8080/')], contextPath: null, war: 'target/*war'
+        deploy adapters: [tomcat9(credentialsId: 'tomcatcredentials', path: '', url: 'http://54.210.84.115:8080/')], contextPath: null, war: 'target/*war'
     }
     stage('6Approval'){
         timeout(time:9, unit:'HOURS') {
@@ -24,6 +24,6 @@ node{
     }
     }
     stage('deploy to prod'){
-        deploy adapters: [tomcat9(credentialsId: 'tomcatcredentials', path: '', url: 'http://107.23.181.109:8080/')], contextPath: null, war: 'target/*war'
+        deploy adapters: [tomcat9(credentialsId: 'tomcatcredentials', path: '', url: 'http://54.210.84.115:8080/')], contextPath: null, war: 'target/*war'
     }
     }
