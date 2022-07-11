@@ -1,0 +1,46 @@
+pipeline{
+    agent any
+    tools{
+        maven "maven3.8.6"
+    }
+    stages{
+        stage('1cloning'){
+            steps{
+            sh 'echo apps latest version '
+           git "https://github.com/verladeco/maven-web-application"
+        }
+        }
+        stage('2testand build'){
+            steps{
+                sh "mvn clean package"
+            }
+        }
+        stage('3codequality'){
+            steps{
+                sh "mvn sonar:sonar"
+            }
+        }
+        stage('4uploadArtifacts'){
+            steps{
+                sh "mvn deploy"
+            }
+        }
+        stage('5deploymentUAT'){
+            steps{
+                deploy adapters: [tomcat9(credentialsId: 'tomcatcredentials', path: '', url: 'http://54.210.84.115:8080/')], contextPath: null, war: 'target/*war'
+            }
+        }
+        stage('6approval'){
+            steps{
+                timeout(time:9, unit:'HOURS') {
+        input message: 'Application ready for deployment, Please review and approve'
+        }
+        }
+    }
+    stage('7deploymentprod'){
+        steps{
+            deploy adapters: [tomcat9(credentialsId: 'tomcatcredentials', path: '', url: 'http://54.210.84.115:8080/')], contextPath: null, war: 'target/*war'
+        }
+    }
+}
+}
