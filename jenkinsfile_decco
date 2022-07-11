@@ -1,0 +1,29 @@
+node{
+    def mavenHome = tool name: 'maven3.8.6'
+    stage('1clonecode'){
+        git "https://github.com/verladeco/maven-web-application"
+    }
+    //this is a single line comment
+    stage('2testand build'){
+        sh "${mavenHome}/bin/mvn install"
+    }
+    stage ('3codeQuality'){
+        sh "${mavenHome}/bin/mvn sonar:sonar"
+    }
+    stage('4uploadArtifacts'){
+        //sh "${mavenHome}/bin/mvn deploy"
+    }
+    /* for multiline comments we can writw then like this.
+    for groovy scripts*/
+    stage('deploy to UAT'){
+        deploy adapters: [tomcat9(credentialsId: 'tomcatcredentials', path: '', url: 'http://54.210.84.115:8080/')], contextPath: null, war: 'target/*war'
+    }
+    stage('6Approval'){
+        timeout(time:9, unit:'HOURS') {
+        input message: 'Application ready for deployment, Please review and approve'
+    }
+    }
+    stage('deploy to prod'){
+        deploy adapters: [tomcat9(credentialsId: 'tomcatcredentials', path: '', url: 'http://54.210.84.115:8080/')], contextPath: null, war: 'target/*war'
+    }
+    }
